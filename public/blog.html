@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strapi Blog</title>
+</head>
+<body>
+    <h2>Blog - Strapi</h2>
+    <div id="articles">
+
+    </div>
+
+    <script>
+        const displayArticles = async () => {
+            const res = await fetch("/articles");
+            const articles = await res.json()
+
+            const container = document.querySelector("#articles");
+            articles.forEach(article => {
+                const img = document.createElement("img")
+                img.setAttribute("src", article.thumbnail.url)
+
+                container.appendChild(img)
+
+                const title = document.createElement("h3")
+                title.innerText = article.title
+                container.appendChild(title)
+
+                const content = document.createElement("div")
+                content.innerText = article.content
+                container.appendChild(content)
+            })
+        }
+
+        displayArticles()
+    </script>
+</body>
+</html>
